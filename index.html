@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>生日快乐</title>
+  <style>
+    body {
+      background-color: black;
+    }
+
+    .display_text {
+      position: absolute;
+      display: none;
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      animation-duration: 1s; /* 动画持续时间 */
+      animation-fill-mode: both; /* 动画结束后保持最后一帧的状态 */
+    }
+
+    @keyframes fade-in {
+      0% {
+        opacity: 0;
+        transform: scale(0);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes fade-out {
+      0% {
+        opacity: 1;
+        transform: scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="display_area"></div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var displayArea = document.getElementById('display_area');
+
+      document.addEventListener('click', function(event) {
+        var posX = event.clientX;
+        var posY = event.clientY;
+
+        var newText = document.createElement('h1');
+        newText.className = 'display_text';
+        newText.style.left = posX + 'px';
+        newText.style.top = posY + 'px';
+        newText.textContent = '生日快乐!';
+
+        displayArea.appendChild(newText);
+
+        // 触发渐入动画
+        newText.style.animationName = 'fade-in';
+        newText.style.display = 'block';
+
+        setTimeout(function() {
+          // 触发渐出动画
+          newText.style.animationName = 'fade-out';
+
+          setTimeout(function() {
+            displayArea.removeChild(newText);
+          }, 1000); // 等待动画结束后移除文本
+        }, 2000); // 2秒后触发渐出动画
+      });
+    });
+  </script>
+</body>
+</html>
